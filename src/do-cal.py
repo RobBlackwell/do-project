@@ -5,7 +5,7 @@ import sys
 usbport = '/dev/ttyAMA0'
 ser = serial.Serial(usbport, 9600, serial.EIGHTBITS, serial.PARITY_NONE)
 
-ser.write("STATUS\r")
+ser.write("Cal\r")
 line = ""
 
 while True:

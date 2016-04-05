@@ -59,6 +59,8 @@ Restart wlan0
 	sudo ifdown wlan0
 	sudo ifup wlan0
 	
+Then
+
 	sudo apt-get update
 	sudo apt-get upgrade
 	sudo apt-get install python-serial

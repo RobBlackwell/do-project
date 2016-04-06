@@ -51,7 +51,7 @@ def main():
     print(ok)
     assert ok == '*OK'
     
-    msg = "{\"do\" : \"" + r + "\"" + ", \"at\" : \"" + str(datetime.now()) + "\"}"
+    msg = "{ \"deviceId\" : \"" + config.DEVICE_NAME + "\", \"do\" : \"" + r + "\"" + ", \"at\" : \"" + str(datetime.now()) + "\"}"
     print(msg)
     
     device.create_sas(600) # Shared Access Signature used for authentication

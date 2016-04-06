@@ -6,6 +6,7 @@ usbport = '/dev/ttyAMA0'
 ser=""
 
 def connect ():
+    global ser
     ser = serial.Serial(usbport, 9600, serial.EIGHTBITS, serial.PARITY_NONE)
     
 def receive(ser=ser):

@@ -13,7 +13,7 @@ while True:
     ok = do.receive()
     assert ok == '*OK'
 
-    time.sleep(2)
+    time.sleep(3)
     do.send("L,0\r")
     
     ok = do.receive()

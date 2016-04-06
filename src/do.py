@@ -18,7 +18,7 @@ def receive(ser=None):
         data = ser.read().decode('utf-8')
         if(data == "\r"):
             if VERBOSE:
-                print "< " + data
+                print ("< " + line)
             return(line)
         else:
             line = line + data
@@ -27,7 +27,7 @@ def send(s, ser=None):
     if ser is None:
         ser = SER
     if VERBOSE:
-        print "> " + s
+        print ("> " + s)
     ser.write(bytes(s,'utf-8'))
 
 

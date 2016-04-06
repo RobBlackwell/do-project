@@ -6,8 +6,8 @@ do.VERBOSE = True
 # Connect to the Atlas Scientific DO circuit board
 do.connect()
   
-do.send("P,?\r")
-do.receive()
+do.send("C,0\r")
+    
 ok = do.receive()
 assert ok == '*OK'
 

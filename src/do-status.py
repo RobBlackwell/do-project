@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 import do
 
+do.VERBOSE = True
+
 # Connect to the Atlas Scientific DO circuit board
 do.connect()
   
 do.send("STATUS\r")
     
-r = do.receive()
-print(r)
+do.receive()
 ok = do.receive()
-print(ok)
 assert ok == '*OK'
 
 

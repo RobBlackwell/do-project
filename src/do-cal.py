@@ -1,17 +1,13 @@
-#!/usr/bin/env python
-import serial
-import sys
+#!/usr/bin/env python3
+import do
 
-usbport = '/dev/ttyAMA0'
-ser = serial.Serial(usbport, 9600, serial.EIGHTBITS, serial.PARITY_NONE)
+do.VERBOSE = True
 
-ser.write("Cal\r")
-line = ""
+# Connect to the Atlas Scientific DO circuit board
+do.connect()
+  
+do.send("Cal\r")
+    
+ok = do.receive()
+assert ok == '*OK'
 
-while True:
-  data = ser.read()
-  if(data == "\r"):
-    print(line)
-    line = ""
-  else:
-    line = line + data

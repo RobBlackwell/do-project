@@ -3,7 +3,8 @@ import serial
 
 usbport = '/dev/ttyAMA0'
 
-SER=""
+SER = ""
+VERBOSE = True
 
 def connect ():
     global SER
@@ -16,6 +17,8 @@ def receive(ser=None):
     while True:
         data = ser.read().decode('utf-8')
         if(data == "\r"):
+            if VERBOSE:
+                print "< " + data
             return(line)
         else:
             line = line + data
@@ -23,6 +26,8 @@ def receive(ser=None):
 def send(s, ser=None):
     if ser is None:
         ser = SER
+    if VERBOSE:
+        print "> " + s
     ser.write(bytes(s,'utf-8'))
 
 

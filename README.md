@@ -63,10 +63,11 @@ Then
 
 	sudo apt-get update
 	sudo apt-get upgrade
-	sudo apt-get install python-serial
+	sudo apt-get install python3
+	sudo apt-get install python3-serial
 	sudo apt-get install minicom
 	sudo apt-get install git-core
-	sudo apt-get install python-pip
+	sudo apt-get install python3-pip
 
 We don't want console fighting with our serial port, so disable it:
 
@@ -139,3 +140,5 @@ Waterproof box
 Solar powered
 
 A lower powered microcontroller such as Photon
+
+Electrical shielding for the sensor circuit board

@@ -1,47 +1,63 @@
 #!/usr/bin/env python3
-import serial
+import do
 import sys
 import DeviceClient
 import config
 import time
 from datetime import datetime
 
+# Sits in a loop reading dissolved oxygen every minute from an Atlas
+# Scientific probe, and sending it via the internet to a Microsoft
+# Azure IOT Hub.
 
-# START: Azure IoT Hub settings
-# KEY = "xxxxx";
-# HUB = "my_hub";
-# DEVICE_NAME = "my_device";
-# END: Azure IoT Hub settings
+# Rob Blackwell <rob.blackwell@cranfield.ac.uk>
+
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+# BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+# ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Create a config.py with your specific Azure IOT Hub configuration:
+# KEY = "xxxxx"
+# HUB = "my_hub"
+# DEVICE_NAME = "my_device"
 
 SLEEP = 60
 
+def main():
 
-def request_response(ser, s):
-  ser.write(bytes(s,'utf-8'))
-  line = ""
+  # Connect to IOT Hub
+  device = DeviceClient.DeviceClient(config.HUB, config.DEVICE_NAME, config.KEY)
+
+  # Connect to the Atlas Scientific DO circuit board
+  do.connect()
+  
+  do.send("C,0\r") # Continuous mode off
+  ok = do.receive()
+  print(ok)
+  assert ok == '*OK'
+  
   while True:
-    data = ser.read().decode('utf-8')
-    if(data == "\r"):
-      return(line)
-    else:
-      line = line + data
+    
+    do.send("R\r") # Request a value for DO
+    
+    r = do.receive()
+    print(r)
+    ok = do.receive()
+    print(ok)
+    assert ok == '*OK'
+    
+    msg = "{\"do\" : \"" + r + "\"" + ", \"at\" : \"" + str(datetime.now()) + "\"}"
+    print(msg)
+    
+    device.create_sas(600) # Shared Access Signature used for authentication
+    print(device.send(bytes(msg,'utf-8')))
+    
+    time.sleep(SLEEP)
 
-
-device = DeviceClient.DeviceClient(config.HUB, config.DEVICE_NAME, config.KEY)
-
-device.create_sas(600)
-
-usbport = '/dev/ttyAMA0'
-ser = serial.Serial(usbport, 9600, serial.EIGHTBITS, serial.PARITY_NONE)
-
-print(request_response(ser, "C,0\r"))
-
-while True:
-
-  r = request_response(ser, "R\r")
-
-  msg = "{\"do\" : \"" + r + "\"" + ",\"at\" : \"" + str(datetime.now()) + "\"}"
-  print(msg)
-  print(device.send(bytes(msg,'utf-8')))
-  time.sleep(SLEEP)
-
+if __name__ == "__main__":
+  main()

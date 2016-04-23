@@ -26,7 +26,7 @@ from datetime import datetime
 # HUB = "my_hub"
 # DEVICE_NAME = "my_device"
 
-SLEEP = 60
+SLEEP = 60 * 5
 
 def main():
 
@@ -53,9 +53,12 @@ def main():
     
     msg = "{ \"deviceId\" : \"" + config.DEVICE_NAME + "\", \"do\" : \"" + r + "\"" + ", \"at\" : \"" + str(datetime.now()) + "\"}"
     print(msg)
-    
-    device.create_sas(600) # Shared Access Signature used for authentication
-    print(device.send(bytes(msg,'utf-8')))
+
+    try:    
+        device.create_sas(600) # Shared Access Signature used for authentication
+        print(device.send(bytes(msg,'utf-8')))
+    except Exception as err:
+        print(err)
     
     time.sleep(SLEEP)
 

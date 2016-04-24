@@ -28,6 +28,13 @@ from datetime import datetime
 
 SLEEP = 60 * 5
 
+def init(do):
+  do.send("C,0\r") # Continuous mode off
+  ok = do.receive()
+  print(ok)
+  return ok
+
+
 def main():
 
   # Connect to IOT Hub
@@ -35,12 +42,11 @@ def main():
 
   # Connect to the Atlas Scientific DO circuit board
   do.connect()
-  
-  do.send("C,0\r") # Continuous mode off
-  ok = do.receive()
-  print(ok)
-  assert ok == '*OK'
-  
+
+  ok = init(do)
+  while ok != '*OK':
+         ok = init(do)
+         
   while True:
     
     do.send("R\r") # Request a value for DO

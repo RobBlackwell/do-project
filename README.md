@@ -1,5 +1,12 @@
 # do-project
-Dissolved Oxygen sensor project tools and notes
+Dissolved Oxygen sensor project tools and notes.
+
+This repository contains notes and software developed as part of an MSc Group Project at Cranfield University.
+
+We wanted to explore how Internet-of-Things techniques could be used to measure and monitor water quality in the Werrington Brook and
+Cuckoo's Hollow in Peterborough.
+
+We realised that Dissolved Oxygen is a key indicator of water quality and managed to use a DO Probe from Atlas Scientific, hooked up to a Raspberry PI, Microosft Azure IoT Hub and Stream Analyics.
 
 ## Parts List
 
@@ -20,7 +27,9 @@ Assorted jumper leads
 
 Plywood offcuts for a base board.
 
-## Experiment 1
+## The DO Probe
+
+The DO Probe is a passive sensor, but generates a small voltage.
 
 I put a digital voltmeter across the dissolved oxygen probe and noted
 37.8mV about 5 minutes after dunking in tap water, removing and

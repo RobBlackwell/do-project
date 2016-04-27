@@ -40,7 +40,7 @@ leaving to dry.
 ## Assemble the components
 
 [Instructables article](http://www.instructables.com/id/Plotly-Atlas-Scientific-Graph-Real-Time-Dissolved-/)
-very useful for circuit, but a bit dated for Linux set up - see below instad.
+very useful for circuit, but a bit dated for Linux set up - see below instead.
 
 Keep the connection between the BNC connector and the DO circuit board
 as short as possible.
@@ -120,6 +120,10 @@ voltage level VCC.
 
 	./do-status.py
 	
+You can fool around with flashing the LED too.
+
+	./do-led.py
+	
 ## Azure
 
 See [Azure IoT Hub Documentation](https://azure.microsoft.com/en-gb/documentation/services/iot-hub/)
@@ -142,6 +146,12 @@ Plug the id and key into do-azure.py and run it
 	./do-azure.py
 	
 https://github.com/bechynsky/AzureIoTDeviceClientPY
+
+Azure Stream Analytics can then be configured to receive an input from IOT Hub and write as an output to a SQL Database table.
+
+Then you get the data into a one page web site, with something like this:
+
+	select top 10 * from [dbo].[data] ORDER BY Id DESC FOR JSON AUTO
 
 ## Start at boot time
 

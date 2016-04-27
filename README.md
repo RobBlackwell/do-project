@@ -8,14 +8,13 @@ Dissolved Oxygen sensor project tools and notes
 [Dissolved Oxygen Circuit](http://www.atlas-scientific.com/product_pages/circuits/ezo_do.html)
 
 [Raspberry PI 1 Model B](https://www.raspberrypi.org/products/model-b/) and suitable power supply.
+(Also works with a [Raspberry PI ZERO](https://www.raspberrypi.org/products/pi-zero/).
 
 8 Gb SD Card
 
 [USB Wifi Adapter for the Raspberry Pi](http://www.amazon.co.uk/USB-Wifi-Adapter-Raspberry-Pi/dp/B00EZOQFHO)
 
 USB Keyboard
-
-26 way ribbon cable
 
 Assorted jumper leads
 
@@ -133,12 +132,32 @@ Plug the id and key into do-azure.py and run it
 	
 https://github.com/bechynsky/AzureIoTDeviceClientPY
 
-## Future Considerations
+## Start at boot time
 
-Waterproof box
+We use cron to start do-azure.py via a launcher.sh script.
+
+	sudo crontab -e
+	
+Then add the following line:
+
+	@reboot sh /home/pi/github/do-project/src/launcher.sh >/home/pi/github/do-project/logs/cronlog 2>&1
+
+Make sure that you create the directory /home/pi/github/do-project/logs/
+
+## Future Considerations
 
 Solar powered
 
-A lower powered microcontroller such as Photon
-
 Electrical shielding for the sensor circuit board
+
+## The Mark 1
+
+The Heath Robinson version
+
+![The Mark1](mark1.jpg =250x)
+
+## The Mark 2
+
+THe slightly more professional version
+
+![The Mark2](mark2.jpg =250x)

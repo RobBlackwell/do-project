@@ -154,10 +154,10 @@ Electrical shielding for the sensor circuit board
 
 The Heath Robinson version
 
-![The Mark1](mark1.jpg =250x)
+![The Mark1](mark1.jpg)
 
 ## The Mark 2
 
 THe slightly more professional version
 
-![The Mark2](mark2.jpg =250x)
+![The Mark2](mark2.jpg)

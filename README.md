@@ -147,7 +147,20 @@ Plug the id and key into do-azure.py and run it
 	
 https://github.com/bechynsky/AzureIoTDeviceClientPY
 
-Azure Stream Analytics can then be configured to receive an input from IOT Hub and write as an output to a SQL Database table.
+Azure Stream Analytics can then be configured to receive an input from IOT Hub (I called it dissolved-oxygen) and write as an output to a SQL Database table (I called that sqldb).
+
+Then you can deine a stream query in a SQL like syntax like this:
+
+	SELECT
+    		do as value,
+    		at,
+    		deviceId
+	INTO
+    		[sqldb]
+	FROM
+    		[dissolved-oxygen]
+
+So you can get all your telemetry data into a database without having to write a line of server side code.
 
 Then you get the data into a one page web site, with something like this:
 

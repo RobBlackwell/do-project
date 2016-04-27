@@ -31,6 +31,8 @@ Plywood offcuts for a base board.
 
 The DO Probe is a passive sensor, but generates a small voltage.
 
+![Probe voltage](voltage.png)
+
 I put a digital voltmeter across the dissolved oxygen probe and noted
 37.8mV about 5 minutes after dunking in tap water, removing and
 leaving to dry.
@@ -167,6 +169,6 @@ The Heath Robinson version
 
 ## The Mark 2
 
-THe slightly more professional version
+The slightly more professional version
 
 ![The Mark2](mark2.png)
